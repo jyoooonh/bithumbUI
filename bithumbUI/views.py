@@ -6,10 +6,13 @@ import time
 from xcoin_api_client1 import *
 import requests
 
-nonce =
+nonce = str(round(time.time() * 1000))
+print(nonce)
 
-apikey = "9e725e6a876168c694eb5235e45b9980"
-seckey = "4e6cd21b006383c0787763405fc2a1dc"
+apikey = ""
+seckey = ""
+#apikey = "9e725e6a876168c694eb5235e45b9980"
+#seckey = "4e6cd21b006383c0787763405fc2a1dc"
 
 @csrf_exempt
 def index(request):
@@ -17,7 +20,6 @@ def index(request):
         api = API()
         api.API_Key = request.POST['API_Key']
         api.Secret_Key = request.POST['Secret_Key']
-        api.save()
 
         if apikey == api.API_Key and seckey == api.Secret_Key:
             return redirect('/orderbook')
@@ -25,7 +27,7 @@ def index(request):
             return redirect('/')
 
     return render(request, 'bithumbUI/api_key.html')
-
+"""
 @csrf_exempt
 def myinfo(request):
     if request.method == 'POST':
@@ -34,7 +36,7 @@ def myinfo(request):
         api.Secret_Key = request.POST['Secret_Key']
         api.save()
     return render(request, 'bithumbUI/api_key.html')
-
+"""
 @csrf_exempt
 def orderbook(request):
     url_orderbook = "https://api.bithumb.com/public/orderbook/BTC_KRW"
@@ -49,7 +51,6 @@ def orderbook(request):
 
 @csrf_exempt
 def balance(request):
-    """
     api = XCoinAPI(apikey, seckey);
 
     rgParams = {
@@ -59,20 +60,3 @@ def balance(request):
     result = api.xcoinApiCall(rgParams['endpoint'], rgParams)
     print(result)
     return HttpResponse(result)
-    """
-    url = "https://api.bithumb.com/info/balance"
-
-    payload = "currency=BTC"
-    headers = {
-        "Accept": "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
-        "api-client-type": "2",
-        "Api-Key": "apikey",
-        "Api-Nonce": "nonce",
-        "Api-Sign": "상세 가이드 참고"
-    }
-
-    response = requests.post(url, data=payload, headers=headers)
-
-    print(response.text)
-    return HttpResponse(response.text)
