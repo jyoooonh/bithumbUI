@@ -1,0 +1,17 @@
+<body>
+  <h1>Bithumb BTC UI</h1>
+  <hr>
+  <form action="{% url 'myinfo' %}" method="POST">
+    {% csrf_token %}
+    <div>
+      <label for="API_Key">API Key</label>
+      <input type="text" name="API_Key" id="API_Key">
+    </div>
+    <div>
+      <label for="Secret_Key">Secret Key</label>
+      <input type="text" name="Secret_Key" id="Secret_Key">
+    </div>
+    <br>
+    <input type="submit" value="Input">
+  </form>
+</body>
