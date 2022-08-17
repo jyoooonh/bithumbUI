@@ -25,7 +25,7 @@ api_secret = "4e6cd21b006383c0787763405fc2a1dc";
 api = XCoinAPI(api_key, api_secret);
 
 rgParams = {
-    'endpoint': '/info/ticker',  #<-- endpoint가 가장 처음으로 와야 한다.
+    'endpoint': '/info/balance',  #<-- endpoint가 가장 처음으로 와야 한다.
     "order_currency": "BTC",
 }
 
@@ -34,7 +34,7 @@ print(result)
 
 
 #잔고조회
-
+"""
 def bithumbBalance(currency):
     rgParams = {
         "currency": currency,
@@ -45,7 +45,8 @@ def bithumbBalance(currency):
 result = bithumbBalance("ALL")
 result = bithumbBalance("BTC")
 print(result)
-"""
+
+
 # 매수
 def bithumbBuy(price, qty, currency):
     rgParams = {

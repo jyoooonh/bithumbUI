@@ -16,47 +16,31 @@ seckey = ""
 
 @csrf_exempt
 def index(request):
-    if request.method == 'POST':
-        api = API()
-        api.API_Key = request.POST['API_Key']
-        api.Secret_Key = request.POST['Secret_Key']
-
-        if apikey == api.API_Key and seckey == api.Secret_Key:
-            return redirect('/orderbook')
-        else:
-            return redirect('/')
-
-    return render(request, 'bithumbUI/api_key.html')
-"""
-@csrf_exempt
-def myinfo(request):
-    if request.method == 'POST':
-        api = API()
-        api.API_Key = request.POST['API_Key']
-        api.Secret_Key = request.POST['Secret_Key']
-        api.save()
-    return render(request, 'bithumbUI/api_key.html')
-"""
-@csrf_exempt
-def orderbook(request):
-    url_orderbook = "https://api.bithumb.com/public/orderbook/BTC_KRW"
-
-    headers = {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-    }
-    response = requests.get(url_orderbook, headers=headers)
-
-    return HttpResponse(response.text)
+    trade_price, opening_price, min_price, max_price, trade_volume = coin_info(f"https://api.bithumb.com/public/ticker/BTC_KRW")
+    context = {'trade_price':trade_price, 'opening_price':opening_price, 'min_price':min_price, 'max_price':max_price,'trade_volume':trade_volume}
+    return render(request, 'bithumbUI/bithumb.html', {'trade_price':trade_price, 'opening_price':opening_price, 'min_price':min_price, 'max_price':max_price,'trade_volume':trade_volume})
 
 @csrf_exempt
-def balance(request):
-    api = XCoinAPI(apikey, seckey);
+def orderbook(url):
+    response = requests.get(url)
+    response_json = response.json()
 
-    rgParams = {
-        'endpoint': '/info/balance',  # <-- endpoint가 가장 처음으로 와야 한다.
-        "order_currency": "BTC",
-    }
-    result = api.xcoinApiCall(rgParams['endpoint'], rgParams)
-    print(result)
-    return HttpResponse(result)
+    BTC_price = {}
+
+    for i in range(0, len(response_json)):
+        price = response_json[i]['price']
+    return BTC_price
+@csrf_exempt
+def coin_info(url):
+    headers = {"Accept": "application/json"}
+
+    response = requests.get(url, headers = headers)
+    response_json = response.json()
+
+    trade_price = response_json['data']['closing_price']
+    opening_price = response_json['data']['opening_price']
+    min_price = response_json['data']['min_price']
+    max_price = response_json['data']['max_price']
+    trade_volume = response_json['data']['acc_trade_value_24H']
+
+    return trade_price, opening_price, min_price, max_price, trade_volume

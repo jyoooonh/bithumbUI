@@ -1,0 +1,66 @@
+* 
+{
+    margin : 0;
+    padding : 0;
+    box-sizing : border-box;
+}
+
+#container
+{
+    width:1200px;
+    height:900px;
+    margin:0 auto;
+}
+
+#header
+{
+    width : 100%;
+    height : 40px;
+    background-color: antiquewhite;
+}
+
+#API
+{
+    width : 20%;
+    height : 100px;
+    float : left;
+    padding-left:7px;
+    padding-top:5px;
+    border:ridge;
+}
+
+#balance
+{
+    width : 80%;
+    height : 100px;
+    float : right;
+    padding-top :5px;
+    border:ridge;
+}
+
+#coin_info
+{
+    width: 400px;
+    height:600px;
+    float:left;
+    padding:10px;
+    border:ridge;
+}
+
+#orderbook
+{
+    width:400px;
+    height:600px;
+    float:left;
+    padding:10px;
+    border:ridge;
+}
+
+#buynsell
+{
+    width: 400px;
+    height: 600px;
+    float:right;
+    padding:10px;
+    border:ridge;
+}

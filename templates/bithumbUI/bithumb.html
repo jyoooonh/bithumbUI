@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, inital-scale=1.0">
+    <link rel="stylesheet" type = "text/css" href="{% static 'bithumb_style.css' %}">
+    <title>Bithumb</title>
+</head>
+
+<body>
+    <div id="container">
+        <div id="header">
+            <h1>Bithumb</h1>
+            <hr>
+            <div id="API">
+                <h2>API login</h2>
+                <form action="{% url 'orderbook' %}" method="POST">
+                    <input type="text" name="API_Key" placeholder="API Key" required autofocus>
+                    <input type="text" name="Secret_Key" placeholder="Secret Key" required>
+                    <input type="submit" name="login" value="input">
+                </form>
+            </div>
+            <div id="balance">
+                <h2>My balance</h2><br>
+                <p>나의 현금잔고</p>
+            </div>
+        </div>
+        <div id="coin_info">
+            <h2>BTC info</h2>
+            <hr>
+            <h3>BTC {{trade_price}} </h3>
+            <h4>시가 {{opening_price}} 고가 {{max_price}}</h4>
+            <h4>거래금액 {{trade_volume}} 저가 {{min_price}}</h4>
+        </div>
+        <div id="orderbook">
+            <h2>orderbook</h2>
+            <hr>
+        </div>
+        <div id="buynsell">
+            <h2>Buy & Sell</h2>
+            <hr>
+            <p>주문형태
+            <input type="checkbox" value="지정가" required>지정가
+            <input type="checkbox" value="시장가">시장가
+            </p><br>
+            <p>주문가격<input type="number">KRW</p><br>
+            <p>주문수량<input type="number">BTC</p><br>
+            <p>주문금액<input type="number">KRW
+            <input type="submit" name="buy" value="buy">
+            <input type="submit" name="sell" value="sell">
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>
