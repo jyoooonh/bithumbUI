@@ -19,6 +19,12 @@
     background-color: antiquewhite;
 }
 
+#table
+{
+    width:60%;
+    height:1000px;
+}
+
 #API
 {
     width : 20%;

@@ -35,8 +35,18 @@
             <h4>거래금액 {{trade_volume}} 저가 {{min_price}}</h4>
         </div>
         <div id="orderbook">
-            <h2>orderbook</h2>
+            <h2>Orderbook</h2>
             <hr>
+            <table border = "1" id="table">
+                <th>가격(KRW)</th>
+                <th>%</th>
+                <th>수량(BTC)</th>
+                <tr>
+                    <td>{{asks_price}}{{bids_price}}</td>
+                    <td>{{asks_price_ratio}}{{bids_price_ratio}}</td>
+                    <td>{{asks_quantity}}{{bids_quantity}}</td>
+                </tr>
+            </table>
         </div>
         <div id="buynsell">
             <h2>Buy & Sell</h2>
