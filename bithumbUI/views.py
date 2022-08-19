@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from .models import API
 import time
+import numpy as np
 from xcoin_api_client1 import *
 import requests
 
@@ -26,17 +27,23 @@ def index(request):
         = orderbook(f"https://api.bithumb.com/public/orderbook/BTC_KRW")
 
     for i in range(0, 30):
-        asks_price_ratio.append(((int(asks_price[i]) / int(opening_price)) - 1) * 100)
+        asks_price_ratio.append((int(asks_price[i]) / int(opening_price) - 1) * 100)
     
     for i in range(0, 30):
         bids_price_ratio.append((int(bids_price[i]) / int(opening_price) - 1) * 100)
     
+    asks_price_ratio = np.round(asks_price_ratio, 2)
+    bids_price_ratio = np.round(bids_price_ratio, 2)
+    price_ratio = round(((int(trade_price) / int(opening_price) - 1) * 100), 2)
+    trade_volume = np.round((float(trade_volume) / 100000000), 1)
+
     return render(request, 'bithumbUI/bithumb.html', \
     {'trade_price':trade_price, 'opening_price':opening_price, \
     'min_price':min_price, 'max_price':max_price,'trade_volume':trade_volume, \
     'asks_price': asks_price, 'asks_quantity' : asks_quantity,\
     'bids_price': bids_price, 'bids_quantity': bids_quantity,\
-    'asks_price_ratio': asks_price_ratio, 'bids_price_ratio':bids_price_ratio})
+    'asks_price_ratio': asks_price_ratio, 'bids_price_ratio':bids_price_ratio,\
+    'price_ratio':price_ratio})
 
 @csrf_exempt
 def orderbook(url):

@@ -4,6 +4,7 @@
 <head>
     {% load static %}
     <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="5">
     <meta name="viewport" content="width=device-width, inital-scale=1.0">
     <link rel="stylesheet" type = "text/css" href="{% static 'bithumb_style.css' %}">
     <title>Bithumb</title>
@@ -16,7 +17,7 @@
             <hr>
             <div id="API">
                 <h2>API login</h2>
-                <form action="{% url 'orderbook' %}" method="POST">
+                <form action="#" method="POST">
                     <input type="text" name="API_Key" placeholder="API Key" required autofocus>
                     <input type="text" name="Secret_Key" placeholder="Secret Key" required>
                     <input type="submit" name="login" value="input">
@@ -28,11 +29,27 @@
             </div>
         </div>
         <div id="coin_info">
-            <h2>BTC info</h2>
+            <h1>BTC/KRW</h1>
             <hr>
-            <h3>BTC {{trade_price}} </h3>
-            <h4>시가 {{opening_price}} 고가 {{max_price}}</h4>
-            <h4>거래금액 {{trade_volume}} 저가 {{min_price}}</h4>
+            <span style="font-size:40px"><b>{{trade_price}}</b></span>
+            <span style="font-size:18px"><b>{{price_ratio}}%</b><span>
+            <table>
+            <tr>
+                <td width="100px">시가</td>
+                <td align="right" width="120px"><b>{{opening_price}}</b></td>
+                <td align="right" width="100px">고가</td>
+                <td align="right" width="120px"><b>{{max_price}}</b></td>
+            </tr>
+            <tr>
+                <td width="100px">거래금액</td>
+                <td align="right" width="120px"><b>{{trade_volume}}억</b></td>
+                <td align="right" width="100px">저가</td>
+                <td align="right" width="120px"><b>{{min_price}}</b></td>
+            </tr>
+            </table>
+            <canvas border = "1">
+                차트
+            </canvas>
         </div>
         <div id="orderbook">
             <h2>Orderbook</h2>
