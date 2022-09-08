@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib import admin
 from django.urls import path, include
+from bithumbUI import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('bithumbUI/', include('bithumbUI.urls')),
+    path('', views.index, name='index'),
 ]

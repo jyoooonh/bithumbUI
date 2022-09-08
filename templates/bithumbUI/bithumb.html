@@ -2,86 +2,106 @@
 <html lang="ko">
 
 <head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="5">
-    <meta name="viewport" content="width=device-width, inital-scale=1.0">
-    <link rel="stylesheet" type = "text/css" href="{% static 'bithumb_style.css' %}">
-    <title>Bithumb</title>
+  {% load static %}
+  <meta charset="UTF-8">
+  <!--<meta http-equiv="refresh" content="5">-->
+  <meta name="viewport" content="width=device-width, inital-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="{% static 'bithumb_style.css' %}">
+  <title>Bithumb</title>
+  <script language="javascript">
+    function mult_bns(){
+      var bs = document.getElementsByName("buynsell")[0];
+      bs.total.value = (bs.price.value) * (bs.quantity.value);
+    }
+
+    function checkOnlyOne(element){
+      const checkboxes = document.getElementsByName("ordertype");
+
+      checkboxes.forEach((cb)=>{
+        cb.checked = false;
+      });
+
+      element.checked = true;
+    }
+  </script>
 </head>
 
 <body>
-    <div id="container">
-        <div id="header">
-            <h1>Bithumb</h1>
-            <hr>
-            <div id="API">
-                <h2>API login</h2>
-                <form action="#" method="POST">
-                    <input type="text" name="API_Key" placeholder="API Key" required autofocus>
-                    <input type="text" name="Secret_Key" placeholder="Secret Key" required>
-                    <input type="submit" name="login" value="input">
-                </form>
-            </div>
-            <div id="balance">
-                <h2>My balance</h2><hr>
-                <p>총 보유자산 {{total_krw}} KRW</p>
-                <p>주문가능금액 {{available_krw}} KRW</p>
-                <p>총 보유BTC {{total_btc}} BTC</p>
-            </div>
-        </div>
-        <div id="coin_info">
-            <h1>BTC/KRW</h1>
-            <hr>
-            <span style="font-size:40px"><b>{{trade_price}}</b></span>
-            <span style="font-size:18px"><b>{{price_ratio}}%</b><span>
-            <table>
-            <tr>
-                <td width="100px">시가</td>
-                <td align="right" width="120px"><b>{{opening_price}}</b></td>
-                <td align="right" width="100px">고가</td>
-                <td align="right" width="120px"><b>{{max_price}}</b></td>
-            </tr>
-            <tr>
-                <td width="100px">거래금액</td>
-                <td align="right" width="120px"><b>{{trade_volume}}억</b></td>
-                <td align="right" width="100px">저가</td>
-                <td align="right" width="120px"><b>{{min_price}}</b></td>
-            </tr>
-            </table>
-            <canvas border = "1">
-                차트
-            </canvas>
-        </div>
-        <div id="orderbook">
-            <h2>Orderbook</h2>
-            <hr>
-            <table border = "1" id="table">
-                <th>가격(KRW)</th>
-                <th>%</th>
-                <th>수량(BTC)</th>
-                <tr>
-                    <td>{{asks_price}}{{bids_price}}</td>
-                    <td>{{asks_price_ratio}}{{bids_price_ratio}}</td>
-                    <td>{{asks_quantity}}{{bids_quantity}}</td>
-                </tr>
-            </table>
-        </div>
-        <div id="buynsell">
-            <h2>Buy & Sell</h2>
-            <hr>
-            <p>주문형태
-            <input type="checkbox" value="지정가" required>지정가
-            <input type="checkbox" value="시장가">시장가
-            </p><br>
-            <p>주문가격<input type="number">KRW</p><br>
-            <p>주문수량<input type="number">BTC</p><br>
-            <p>주문금액<input type="number">KRW
-            <input type="submit" name="buy" value="buy">
-            <input type="submit" name="sell" value="sell">
-            </p>
-        </div>
+  <div id="container">
+    <div id="header">
+      <h1>Bithumb</h1>
+      <hr>
+      <div id="API">
+        <h2>API login</h2>
+        <form action="#" method="POST">
+          <input type="text" name="API_Key" placeholder="API Key" required autofocus>
+          <input type="text" name="Secret_Key" placeholder="Secret Key" required>
+          <input type="submit" name="login" value="input">
+        </form>
+      </div>
+      <div id="balance">
+        <h2>My balance</h2>
+        <hr>
+        <p>총 보유자산 {{total_krw}} KRW</p>
+        <p>주문가능금액 {{available_krw}} KRW</p>
+        <p>총 보유BTC {{total_btc}} BTC</p>
+      </div>
     </div>
+    <div id="coin_info">
+      <h1>BTC/KRW</h1>
+      <hr>
+      <span style="font-size:40px"><b>{{trade_price}}</b></span>
+      <span style="font-size:18px"><b>{{price_ratio}}%</b><span>
+          <table>
+            <tr>
+              <td width="100px">시가</td>
+              <td align="right" width="120px"><b>{{opening_price}}</b></td>
+              <td align="right" width="100px">고가</td>
+              <td align="right" width="120px"><b>{{max_price}}</b></td>
+            </tr>
+            <tr>
+              <td width="100px">거래금액</td>
+              <td align="right" width="120px"><b>{{trade_volume}}억</b></td>
+              <td align="right" width="100px">저가</td>
+              <td align="right" width="120px"><b>{{min_price}}</b></td>
+            </tr>
+          </table>
+          <canvas border="1">
+            차트
+          </canvas>
+    </div>
+    <div id="orderbook">
+      <h2>Orderbook</h2>
+      <hr>
+      <table border="1" id="table">
+        <th>가격(KRW)</th>
+        <th>%</th>
+        <th>수량(BTC)</th>
+        <tr>
+          <td>{{asks_price}}{{bids_price}}</td>
+          <td>{{asks_price_ratio}}{{bids_price_ratio}}</td>
+          <td>{{asks_quantity}}{{bids_quantity}}</td>
+        </tr>
+      </table>
+    </div>
+    <div id="buynsell">
+      <form action="#" name="buynsell" method="post">
+        <h2>Buy & Sell</h2>
+        <hr>
+        <p>주문형태
+          <input type="checkbox" name="ordertype" value="limit" onClick='checkOnlyOne(this)'>지정가
+          <input type="checkbox" name="ordertype" value="market" onClick='checkOnlyOne(this)'>시장가
+        </p><br>
+        <p>주문가격<input type="number" name="price">KRW</p><br>
+        <p>주문수량<input type="number" name="quantity" step="0.0001">BTC</p><br>
+        <p><input type="button" value="총 금액 계산" onClick='mult_bns()'></p>
+        <p>주문금액<input type="number" name="total" readonly>KRW</p><br>
+          <input type="submit" name="bs" value="buy">
+          <input type="submit" name="bs" value="sell">
+        </p>
+      </form>
+    </div>
+  </div>
 </body>
 
 </html>

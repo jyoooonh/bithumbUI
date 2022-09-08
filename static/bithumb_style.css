@@ -29,10 +29,22 @@
 {
     width : 20%;
     height : 100px;
+    text-align: center;
+    justify-content: center;
     float : left;
     padding-left:7px;
     padding-top:5px;
     border:ridge;
+    display:flex;
+}
+
+#login
+{   
+    font-size:20px;
+    background-color: orange;
+    margin:auto;
+    color: orange;
+    padding: 5px;
 }
 
 #balance
@@ -40,7 +52,8 @@
     width : 80%;
     height : 100px;
     float : right;
-    padding :10px;
+    padding-left:7px;
+    padding-top:5px;
     border:ridge;
 }
 
